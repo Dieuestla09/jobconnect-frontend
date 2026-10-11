@@ -7,6 +7,8 @@ const navItems = {
     ['Overview', '/job-seeker'],
     ['Profile', '/job-seeker/profile'],
     ['Applications', '/job-seeker/applications'],
+    ['Interviews', '/job-seeker/interviews'],
+    ['Job Alerts', '/job-seeker/alerts'],
     ['Browse Jobs', '/jobs']
   ],
   employer: [

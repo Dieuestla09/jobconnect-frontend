@@ -172,3 +172,23 @@ a {
     margin-top: 1rem;
   }
 }
+
+/* Score ring used for job match percentages. */
+.score-ring {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.score-ring span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* The applicants table has extra review actions, so skills are truncated sooner. */
+.applicants-table .table-text {
+  max-width: 130px;
+}

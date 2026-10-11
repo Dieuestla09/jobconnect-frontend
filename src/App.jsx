@@ -20,6 +20,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import ManageUsers from './pages/ManageUsers';
 import ManageJobs from './pages/ManageJobs';
 import ManageApplications from './pages/ManageApplications';
+import JobAlerts from './pages/JobAlerts';
+import MyInterviews from './pages/MyInterviews';
 import NotFound from './pages/NotFound';
 
 // App declares every route in the frontend.
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/job-seeker" element={<JobSeekerDashboard />} />
           <Route path="/job-seeker/profile" element={<JobSeekerProfile />} />
           <Route path="/job-seeker/applications" element={<MyApplications />} />
+          <Route path="/job-seeker/alerts" element={<JobAlerts />} />
+          <Route path="/job-seeker/interviews" element={<MyInterviews />} />
         </Route>
       </Route>
 

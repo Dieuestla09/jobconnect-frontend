@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import AlertMessage from '../components/AlertMessage';
 import Loading from '../components/Loading';
 import StatusBadge from '../components/StatusBadge';
+import ScoreRing from '../components/ScoreRing';
+import MatchExplain from '../components/MatchExplain';
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -12,6 +14,8 @@ const JobDetails = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [match, setMatch] = useState(null);
+  const [matchError, setMatchError] = useState('');
 
   useEffect(() => {
     // Load one job based on the :id route parameter.
@@ -21,6 +25,15 @@ const JobDetails = () => {
       .catch((err) => setError(err.response?.data?.message || 'Could not load job'))
       .finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    // Only job seekers get a personal match score (explained: 70% skills, 30% location).
+    if (user?.role !== 'job_seeker') return;
+    api
+      .get(`/alerts/match/jobs/${id}`)
+      .then((res) => setMatch(res.data))
+      .catch((err) => setMatchError(err.response?.data?.message || 'Could not calculate your match'));
+  }, [id, user?.role]);
 
   if (loading) return <Loading />;
   if (error) return <main className="container py-4"><AlertMessage message={error} /></main>;
@@ -61,6 +74,27 @@ const JobDetails = () => {
           <p className="preline">{job.requirements || 'Not specified'}</p>
         </section>
         <aside className="col-lg-4">
+          {user?.role === 'job_seeker' && (
+            <div className="card mb-3">
+              <div className="card-body">
+                <h3 className="h6">Your match</h3>
+                {matchError && <div className="small text-danger">{matchError}</div>}
+                {!match && !matchError && <div className="small text-secondary">Calculating...</div>}
+                {match && (
+                  <>
+                    <div className="d-flex align-items-center gap-3 mb-3">
+                      <ScoreRing score={match.match.score} size={72} />
+                      <div className="small text-secondary">70% skills + 30% location</div>
+                    </div>
+                    {!match.profile_has_skills && (
+                      <div className="small text-warning-emphasis mb-2">Add skills to your profile for an accurate score.</div>
+                    )}
+                    <MatchExplain match={match.match} />
+                  </>
+                )}
+              </div>
+            </div>
+          )}
           <div className="card">
             <div className="card-body">
               <h3 className="h6">Company</h3>

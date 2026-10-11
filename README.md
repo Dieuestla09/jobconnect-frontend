@@ -124,6 +124,21 @@ Admin:
 - Manage Jobs
 - Manage Applications
 
+## New Screens (assignment extension)
+
+| Role | Screen | Route |
+| --- | --- | --- |
+| Job seeker | Job Alerts (create, edit, pause, delete, ranked matches with "Why this score?") | `/job-seeker/alerts` |
+| Job seeker | My Interviews (confirm a slot or decline with a reason) | `/job-seeker/interviews` |
+| Job seeker | Recommended jobs on the dashboard | `/job-seeker` |
+| Job seeker | "Your match" score ring on job details | `/jobs/:id` |
+| Employer | Applicants page: Scorecard and Interview panels per applicant, "Rank by scorecard" switch | `/employer/jobs/:id/applicants` |
+
+New components: `ScoreRing`, `MatchExplain`, `MatchList`, `InterviewPanel`, `ScorecardPanel`.
+The backend must have the new migration applied (see the backend README) or these screens show an error message.
+
+To try them: log in as `seeker1@jobconnect.com` (alerts, interview invitation) and `employer1@jobconnect.com` (job 1 applicants with scorecards), password `password123`, after running `npm run migrate` and `npm run seed:features` in the backend.
+
 ## Student Exercises
 
 - Add client-side form validation messages for every required field.

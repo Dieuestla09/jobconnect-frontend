@@ -44,9 +44,9 @@ jobconnect-frontend/
 
 ## Requirements
 
-- Node.js 18 or newer
+- Node.js 20.19+ or 22.12+ (required by Vite 8; built and run on Node 24.19 / npm 11)
 - npm
-- Running JobConnect backend at `http://localhost:5000`
+- Running JobConnect backend at `http://localhost:5000` with the new-feature migration applied (see the backend README: `npm run migrate`)
 
 ## Setup
 
@@ -67,6 +67,8 @@ Default `.env` value:
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
+
+If your API uses another port, change this value and restart `npm run dev` (Vite reads it at start-up). The API must list the frontend's origin in its CORS settings (see the backend README).
 
 Start the frontend:
 
